@@ -1,3 +1,4 @@
 bin
 obj
-UI/appsetting.json
+WebUI/appsettings.json
+
