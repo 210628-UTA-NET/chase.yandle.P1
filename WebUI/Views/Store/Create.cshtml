@@ -1,0 +1,46 @@
+@model WebUI.Models.StoreVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h3>Add A Store</h3>
+
+    <div>
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label asp-for="stStreet" class="form-label">Street</label>
+                <input asp-for="stStreet" type="text" class="form-control">
+                <span asp-validation-for="stStreet" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="stCity" class="form-label">City</label>
+                <input asp-for="stCity" type="text" class="form-control">
+                <span asp-validation-for="stCity" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="stState" class="form-label">State</label>
+                <input asp-for="stState" type="text" class="form-control">
+                <span asp-validation-for="stState" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="stPhone" class="form-label">Phone</label>
+                <input asp-for="stPhone" type="text" class="form-control">
+                <span asp-validation-for="stPhone" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="stEmail" class="form-label">Email</label>
+                <input asp-for="stEmail" type="text" class="form-control">
+                <span asp-validation-for="stEmail" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <a asp-action="Login" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+@model WebUI.Models.ProductVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h3>Add A Customer</h3>
+
+    <div>
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label asp-for="pName" class="form-label">Name</label>
+                <input asp-for="pName" type="text" class="form-control" placeholder="Put Name Of Product Here">
+                <span asp-validation-for="pName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="pPrice" class="form-label">Price</label>
+                <input asp-for="pPrice" type="number" class="form-control">
+                <span asp-validation-for="pPrice" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="pReleaseDate" class="form-label">Release Date</label>
+                <input asp-for="pReleaseDate" type="date" class="form-control">
+                <span asp-validation-for="pReleaseDate" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <a asp-action="Login" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+    </div>
+</body>
+</html>

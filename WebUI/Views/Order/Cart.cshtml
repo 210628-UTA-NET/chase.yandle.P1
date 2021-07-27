@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebUI.Models.LineItemVM>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>We are in Cart Page</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @(OrderVM.currentOrder.oPrice=0);
+            @foreach (var item in OrderVM.currentLines)
+            {
+                <tr>
+                    <td>@item.liProduct.pName</td>
+                    <td>@item.liQuantity</td>
+                    <td>@item.liLinePrice</td>
+                </tr>
+                @(OrderVM.currentOrder.oPrice = OrderVM.currentOrder.oPrice + item.liLinePrice);
+            }
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td><a>@OrderVM.currentOrder.oPrice</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    @using (Html.BeginForm("Cart", "Order", new { p_oPrice = OrderVM.currentOrder.oPrice }, FormMethod.Post))
+    {
+        <input type="submit" value="Filter By Name" placeholder="Name" />
+    }
+</body>
+</html>

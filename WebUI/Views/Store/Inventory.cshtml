@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebUI.Models.ProductVM>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>We are in Shopping Page</h1>
+    <a class="btn btn-secondary" style="position:relative; bottom:15px" asp-action="Create">Add a New Product</a>
+    <div>
+
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Release Date</th>
+                <th>Quantity In Stock</th>
+                <th>Quantity To Restock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.pName)</td>
+                <td>@Html.DisplayFor(modelItem => item.pPrice)</td>
+                <td>@Html.DisplayFor(modelItem => item.pReleaseDay)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pQuantity)
+                </td>
+                <td>
+                    @using (Html.BeginForm("Restock", "Store", new { p_prod = item.pID, p_store = StoreVM.stCurrent.stID, p_oldquant = item.pQuantity }))
+                    {
+                        @Html.TextBox("p_quant", 0, new { @type = "number" })
+                        <button type="submit">Add To Order"</button>
+                    }
+                            </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

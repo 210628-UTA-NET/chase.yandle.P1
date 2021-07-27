@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebUI.Models.OrderVM>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>We are in Customer Page</h1>
+    <br />
+
+    <a class="btn btn-secondary" style="position:relative; bottom:15px" asp-action="Create">Create Customer</a>
+
+    @using (Html.BeginForm("OrderList", "Customer", new { p_custID = OrderVM.currentCustomer, p_sort = 0 }, FormMethod.Post))
+    {
+        <button type="submit">Default</button>
+    }
+    @using (Html.BeginForm("OrderList", "Customer", new { p_custID = OrderVM.currentCustomer, p_sort = 1 }, FormMethod.Post))
+    {
+        <button type="submit">Low to High Price</button>
+    }
+    @using (Html.BeginForm("OrderList", "Customer", new { p_custID = OrderVM.currentCustomer, p_sort = 2 }, FormMethod.Post))
+    {
+        <button type="submit">High to Low Price</button>
+    }
+    @using (Html.BeginForm("OrderList", "Customer", new { p_custID = OrderVM.currentCustomer, p_sort = 3 }, FormMethod.Post))
+    {
+        <button type="submit">Old to New</button>
+    }
+    @using (Html.BeginForm("OrderList", "Customer", new { p_custID = OrderVM.currentCustomer, p_sort = 4 }, FormMethod.Post))
+    {
+        <button type="submit">New to Old</button>
+    }
+
+    <br />
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>View Order Details</th>
+                <th>Store Placed At</th>
+                <th>Total Price</th>
+                <th>Date and Time</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @using (Html.BeginForm("OrderDetails", "Customer", new { p_ordID = item.oID }, FormMethod.Post))
+                        {
+                            <button type="submit">View Order</button>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.oStoreStreet)</td>
+                    <td>@Html.DisplayFor(modelItem => item.oPrice)</td>
+                    <td>@Html.DisplayFor(modelItem => item.oDateAndTime)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

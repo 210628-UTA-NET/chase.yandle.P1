@@ -1,0 +1,51 @@
+@model WebUI.Models.CustomerVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h3>Add A Customer</h3>
+
+    <div>
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label asp-for="cName" class="form-label">Name</label>
+                <input asp-for="cName" type="text" class="form-control" placeholder="Put Name Of Customer Here">
+                <span asp-validation-for="cName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="cStreet" class="form-label">Street</label>
+                <input asp-for="cStreet" type="text" class="form-control">
+                <span asp-validation-for="cStreet" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="cCity" class="form-label">City</label>
+                <input asp-for="cCity" type="text" class="form-control">
+                <span asp-validation-for="cCity" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="cState" class="form-label">State</label>
+                <input asp-for="cState" type="text" class="form-control">
+                <span asp-validation-for="cState" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="cPhone" class="form-label">Phone</label>
+                <input asp-for="cPhone" type="text" class="form-control">
+                <span asp-validation-for="cPhone" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="cEmail" class="form-label">Email</label>
+                <input asp-for="cEmail" type="text" class="form-control">
+                <span asp-validation-for="cEmail" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <a asp-action="Login" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
+    </div>
+</body>
+</html>
