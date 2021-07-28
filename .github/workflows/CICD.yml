@@ -29,7 +29,7 @@ jobs:
         sonarProjectKey: 210628-UTA-NET_chase.yandle.P1
         sonarProjectName: chase.yandle.P1
         sonarOrganization: 210628-uta-net
-        dotnetDisableTests: true
+        dotnetDisableTests: false
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
