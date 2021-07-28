@@ -11,10 +11,11 @@ namespace DL
         {
             _context=p_context;
         }
-        public void AddCustomer(Customer p_cust)
+        public Customer AddCustomer(Customer p_cust)
         {
             _context.Customers.Add(p_cust);
             _context.SaveChanges();
+            return p_cust;
         }
         public List<Customer> GetAllCustomers()
         {   

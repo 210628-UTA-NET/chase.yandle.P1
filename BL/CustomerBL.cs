@@ -12,9 +12,9 @@ namespace BL
         {
             _repo=p_repo;
         }
-        public void AddCustomer(Customer p_cust)
+        public Customer AddCustomer(Customer p_cust)
         {
-            _repo.AddCustomer(p_cust);
+            return _repo.AddCustomer(p_cust);
         }
         public List<Customer> GetAllCustomers()
         {
