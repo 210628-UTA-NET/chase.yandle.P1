@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Models;
 using BL;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace WebUI.Models
 {
@@ -21,8 +21,12 @@ namespace WebUI.Models
         }
 
         public int pID { get; set; }
+        [Required]
         public decimal pPrice { get; set; }
+
+        [Required]
         public string pName { get; set; }
+        [Required]
         public DateTime pReleaseDate { get; set; }
         public List<InventoryVM> pInventory { get; set; }
         public string pReleaseDay { get; set; }

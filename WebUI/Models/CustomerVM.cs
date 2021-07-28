@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Models;
 using BL;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebUI.Models
 {
@@ -21,12 +22,23 @@ namespace WebUI.Models
             cPhone = p_cust.cPhone;
             cEmail = p_cust.cEmail;
         }
-
+        [Required]
         public string cName { get; set; }
+        [Required]
         public string cStreet { get; set; }
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
+        [Required]
         public string cCity { get; set; }
+
+        [RegularExpression(@"^[A-Z]+[A-Z]*$")]
+        [Required]
+        [StringLength(2,MinimumLength = 2)]
         public string cState { get; set; }
+        [RegularExpression(@"^[0-9""'\s-]*$")]
+        [Required]
         public string cPhone { get; set; }
+        [Required]
         public string cEmail { get; set; }
         public List<OrderVM> cOrders { get; set; }
         public int cID { get; set; }

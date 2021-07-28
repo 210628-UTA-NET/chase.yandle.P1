@@ -44,7 +44,15 @@ namespace WebUI.Controllers
             OrderVM.currentOrder.oCustomerID = CustomerVM.cCurrent.cID;
             OrderVM.currentOrder.oStoreID = StoreVM.stCurrent.stID;
             int orderID=0;
-
+            foreach (LineItemVM item in OrderVM.currentLines)
+            {
+                if (_prodBL.StockAtStore(item.liProductID,OrderVM.currentOrder.oStoreID)<item.liQuantity)
+                {
+                    Log.Information("Order Not posted");
+                    return View();
+                }
+            }
+            
                 if (OrderVM.currentOrder.oCustomerID!=0 || OrderVM.currentOrder.oStoreID !=0)
                 {
                     orderID=_ordersBL.AddOrders(new Order
@@ -81,8 +89,14 @@ namespace WebUI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ClearCart()
+        {
+            OrderVM.currentLines = new();
+            return RedirectToAction("Cart");
+        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             Log.Information("Errored Out");

@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>We are in Shopping Page</h1>
+    <br />
     <a class="btn btn-secondary" style="position:relative; bottom:15px" asp-action="Create">Add a New Product</a>
     <div>
 
@@ -28,13 +29,13 @@
             {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.pName)</td>
-                <td>@Html.DisplayFor(modelItem => item.pPrice)</td>
+                <td>$@Html.DisplayFor(modelItem => item.pPrice)</td>
                 <td>@Html.DisplayFor(modelItem => item.pReleaseDay)</td>
                 <td>
                     @using (Html.BeginForm("AddToOrder", "Shopping", new { p_prod = item.pID }))
                     {
                         @Html.TextBox("p_quant", 0, new { @type = "number" })
-                        <button type="submit">Add To Order"</button>
+                        <button class="btn btn-secondary" type="submit">Add To Order</button>
                     }
                 </td>
             </tr>

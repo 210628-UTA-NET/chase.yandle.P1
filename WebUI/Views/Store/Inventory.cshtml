@@ -8,11 +8,8 @@
     <title></title>
 </head>
 <body>
-    <h1>We are in Shopping Page</h1>
-    <a class="btn btn-secondary" style="position:relative; bottom:15px" asp-action="Create">Add a New Product</a>
-    <div>
-
-    </div>
+    <h1>We are in Inventory Page</h1>
+    <br />
 
     <table class="table table-striped table-hover">
         <thead>
@@ -27,23 +24,24 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.pName)</td>
-                <td>@Html.DisplayFor(modelItem => item.pPrice)</td>
-                <td>@Html.DisplayFor(modelItem => item.pReleaseDay)</td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.pQuantity)
-                </td>
-                <td>
-                    @using (Html.BeginForm("Restock", "Store", new { p_prod = item.pID, p_store = StoreVM.stCurrent.stID, p_oldquant = item.pQuantity }))
-                    {
-                        @Html.TextBox("p_quant", 0, new { @type = "number" })
-                        <button type="submit">Add To Order"</button>
-                    }
-                            </td>
-            </tr>
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.pName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.pPrice)</td>
+                    <td>@Html.DisplayFor(modelItem => item.pReleaseDay)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pQuantity)
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("Restock", "Store", new { p_prod = item.pID, p_store = StoreVM.stCurrent.stID, p_oldquant = item.pQuantity }))
+                        {
+                            @Html.TextBox("p_quant", 0, new { @type = "number" })
+                            <button class="btn btn-secondary" type="submit">Restock</button>
+                        }
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
+    <a asp-action="Index" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
 </body>
 </html>

@@ -8,31 +8,42 @@
     <title></title>
 </head>
 <body>
-    <h1>We are in Customer Page</h1>
+    <h1>We are in Store Order History Page</h1>
     <br />
-
-    <a class="btn btn-secondary" style="position:relative; bottom:15px" asp-action="Create">Create Customer</a>
-
-    @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 0 }, FormMethod.Post))
-    {
-        <button type="submit">Default</button>
-    }
-    @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 1 }, FormMethod.Post))
-    {
-        <button type="submit">Low to High Price</button>
-    }
-    @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 2 }, FormMethod.Post))
-    {
-        <button type="submit">High to Low Price</button>
-    }
-    @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 3 }, FormMethod.Post))
-    {
-        <button type="submit">Old to New</button>
-    }
-    @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 4 }, FormMethod.Post))
-    {
-        <button type="submit">New to Old</button>
-    }
+    <table>
+        <tr>
+            <td>
+                @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 0 }, FormMethod.Post))
+                {
+                    <button class="btn btn-secondary" type="submit">Default</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 1 }, FormMethod.Post))
+                {
+                    <button class="btn btn-secondary" type="submit">Low to High Price</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 2 }, FormMethod.Post))
+                {
+                    <button class="btn btn-secondary" type="submit">High to Low Price</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 3 }, FormMethod.Post))
+                {
+                    <button class="btn btn-secondary" type="submit">Old to New</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("OrderList", "Store", new { p_storeID = OrderVM.currentStore, p_sort = 4 }, FormMethod.Post))
+                {
+                    <button class="btn btn-secondary" type="submit">New to Old</button>
+                }
+            </td>
+        </tr>
+    </table>
 
     <br />
     <table class="table table-striped table-hover">
@@ -52,7 +63,8 @@
                     <td>
                         @using (Html.BeginForm("OrderDetails", "Store", new { p_ordID = item.oID }, FormMethod.Post))
                         {
-                            <button type="submit">View Order</button>
+                            <button class="btn btn-secondary" type="submit">View Order</button>
+                            <a hidden>@(OrderVM.orderHistory=item)</a>
                         }
                     </td>
                     <td>@Html.DisplayFor(modelItem => item.oCustName)</td>
@@ -62,5 +74,6 @@
             }
         </tbody>
     </table>
+    <a asp-action="Index" class="btn btn-danger" style="position:relative; top:15px; width:100px">Back</a>
 </body>
 </html>

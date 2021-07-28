@@ -8,7 +8,7 @@
         <title></title>
     </head>
     <body>
-        <h1>We are in Customer Page</h1>
+        <h1>We are in Store Listing Page</h1>
         <br />
 
         <a class="btn btn-secondary" style="position:relative; bottom:15px" asp-action="Create">Create Store</a>
@@ -34,7 +34,7 @@
                     <td>
                         @using (Html.BeginForm("LogInStore", "Store", new { p_name = item.stStreet, p_id = item.stID }, FormMethod.Post))
                         {
-                            <button type="submit">Set Store</button>
+                            <button class="btn btn-info" type="submit">Set Store</button>
                         }
                                     </td>
                     <td>@Html.DisplayFor(modelItem => item.stStreet)</td>
@@ -45,13 +45,13 @@
                     <td>
                         @using (Html.BeginForm("OrderList", "Store", new { p_storeID = item.stID, p_sort = 0 }, FormMethod.Post))
                         {
-                            <button type="submit">View Order History</button>
+                            <button class="btn btn-secondary" type="submit">View Order History</button>
                         }
                     </td>
                     <td>
                         @using (Html.BeginForm("SetInventoryStore", "Store", new { p_street = item.stStreet, p_id = item.stID}, FormMethod.Post))
                         {
-                        <button type="submit">View Inventory</button>
+                        <button class="btn btn-secondary" type="submit">View Inventory</button>
                         }
                     </td>
                 </tr>

@@ -14,13 +14,13 @@
         <a class="btn btn-secondary" style="position:relative; bottom:15px" asp-action="Create">Create Customer</a>
         @using (Html.BeginForm("Login", "Customer", FormMethod.Get))
         {
-            @Html.TextBox("p_name") <input type="submit" value="Filter By Name" placeholder="Name" />
+            @Html.TextBox("p_name") <input class="btn btn-success" type="submit" value="Filter By Name" placeholder="Name" />
         }
         <br />
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Customer Selection</th>
                     <th>Name</th>
                     <th>Street</th>
                     <th>City</th>
@@ -38,7 +38,7 @@
                     <td>
                         @using (Html.BeginForm("LoginCustomer", "Customer", new { p_name = item.cName, p_id = item.cID}, FormMethod.Post))
                         {
-                            <button type="submit">Set Customer</button>
+                            <button class="btn btn-info" type="submit">Set Customer</button>
                         }
                     </td>
                     <td>@Html.DisplayFor(modelItem => item.cName)</td>
@@ -50,7 +50,7 @@
                     <td>
                         @using (Html.BeginForm("OrderList", "Customer", new { p_custID = item.cID, p_sort = 0}, FormMethod.Post))
                         {
-                            <button type="submit">View Order History</button>
+                            <button class="btn btn-secondary" type="submit">View Order History</button>
                         }
                     </td>
                 </tr>
