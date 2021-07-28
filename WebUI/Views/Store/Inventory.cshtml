@@ -32,7 +32,7 @@
                         @Html.DisplayFor(modelItem => item.pQuantity)
                     </td>
                     <td>
-                        @using (Html.BeginForm("Restock", "Store", new { p_prod = item.pID, p_store = StoreVM.stCurrent.stID, p_oldquant = item.pQuantity }))
+                        @using (Html.BeginForm("Restock", "Store", new { p_prod = item.pID, p_store = StoreVM.stInventorySet.stID, p_oldquant = item.pQuantity }))
                         {
                             @Html.TextBox("p_quant", 0, new { @type = "number" })
                             <button class="btn btn-secondary" type="submit">Restock</button>
