@@ -9,6 +9,7 @@ using WebUI.Models;
 using BL;
 using Models;
 using DL;
+using Serilog;
 
 namespace WebUI.Controllers
 {
@@ -27,11 +28,13 @@ namespace WebUI.Controllers
 
         public IActionResult Index()
         {
+            Log.Information("Index is called");
             return View();
         }
         [HttpGet]
         public IActionResult Cart()
         {
+            Log.Information("Display Cart Details");
             return View(OrderVM.currentLines);
         }
 
@@ -71,9 +74,10 @@ namespace WebUI.Controllers
                     }
                     OrderVM.currentOrder = new();
                     OrderVM.currentLines = new();
-
-                    return RedirectToAction(nameof(Cart));
+                Log.Information("Order created and posted");
+                return RedirectToAction(nameof(Cart));
                 }
+            Log.Information("Order Not posted");
             return View();
         }
 
@@ -81,6 +85,7 @@ namespace WebUI.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            Log.Information("Errored Out");
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

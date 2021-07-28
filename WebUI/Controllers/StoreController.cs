@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using WebUI.Models;
 using BL;
 using Models;
+using Serilog;
 
 namespace WebUI.Controllers
 {
@@ -31,7 +32,8 @@ namespace WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-                return View(
+            Log.Information("");
+            return View(
                 _storesBL.GetAllStores()
                 .Select(store => new StoreVM(store))
                 .ToList()
@@ -40,6 +42,7 @@ namespace WebUI.Controllers
         }
         public IActionResult Create()
         {
+            Log.Information("Store Creation Menu Called");
             return View();
         }
 
@@ -61,6 +64,7 @@ namespace WebUI.Controllers
                     item.pQuantity = 0;
                 }
             }
+            Log.Information("Inventory of a store called");
             return View(temp);
         }
 
@@ -69,6 +73,7 @@ namespace WebUI.Controllers
         {
             StoreVM.stInventorySet.stStreet = p_street;
             StoreVM.stInventorySet.stID = p_id;
+            Log.Information("Inventory Action Called");
             return RedirectToAction("Inventory");
         }
 
@@ -80,6 +85,7 @@ namespace WebUI.Controllers
             add.iStoreID = p_store;
             add.iQuantity = p_quant+p_oldquant;
             _prodBL.AddToInventory(add, p_oldquant);
+            Log.Information("Inventory Updated");
             return RedirectToAction("Inventory");
         }
 
@@ -101,13 +107,16 @@ namespace WebUI.Controllers
                         stPhone = storeVM.stPhone
                     }
                     );
+                    Log.Information("Store Added");
                     return RedirectToAction(nameof(Index));
                 }
             }
             catch (Exception)
             {
+                Log.Information("Store not added");
                 return View();
             }
+            Log.Information("Store not added");
             return View();
         }
 
@@ -117,6 +126,7 @@ namespace WebUI.Controllers
         {
             StoreVM.stCurrent.stStreet = p_name;
             StoreVM.stCurrent.stID = p_id;
+            Log.Information("Store logged in");
             return RedirectToAction("Index");
         }
 
@@ -133,6 +143,7 @@ namespace WebUI.Controllers
                     {
                         item.oCustName = _customerBL.GetCustomer(item.oCustomerID).cName;
                     }
+                    Log.Information("Store order list sorted");
                     return View(temp);
                 case 2:
                     temp = _ordersBL.GetOrdersByStore(p_storeID, DL.Sort.HighToLow).Select(ord => new OrderVM(ord)).ToList();
@@ -140,6 +151,7 @@ namespace WebUI.Controllers
                     {
                         item.oCustName = _customerBL.GetCustomer(item.oCustomerID).cName;
                     }
+                    Log.Information("Store order list sorted");
                     return View(temp);
                 case 3:
                     temp = _ordersBL.GetOrdersByStore(p_storeID, DL.Sort.OldToNew).Select(ord => new OrderVM(ord)).ToList();
@@ -147,6 +159,7 @@ namespace WebUI.Controllers
                     {
                         item.oCustName = _customerBL.GetCustomer(item.oCustomerID).cName;
                     }
+                    Log.Information("Store order list sorted");
                     return View(temp);
                 case 4:
                     temp = _ordersBL.GetOrdersByStore(p_storeID, DL.Sort.NewToOld).Select(ord => new OrderVM(ord)).ToList();
@@ -154,6 +167,7 @@ namespace WebUI.Controllers
                     {
                         item.oCustName = _customerBL.GetCustomer(item.oCustomerID).cName;
                     }
+                    Log.Information("Store order list sorted");
                     return View(temp);
                 default:
                     temp = _ordersBL.GetOrdersByStore(p_storeID, DL.Sort.Default).Select(ord => new OrderVM(ord)).ToList();
@@ -161,6 +175,7 @@ namespace WebUI.Controllers
                     {
                         item.oCustName = _customerBL.GetCustomer(item.oCustomerID).cName;
                     }
+                    Log.Information("Store order list sorted");
                     return View(temp);
             }
 
@@ -174,12 +189,14 @@ namespace WebUI.Controllers
             {
                 item.liProdName = _prodBL.GetProductByID(item.liProductID).pName;
             }
+            Log.Information("Store order details shown");
             return View(temp);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            Log.Information("Errored Out");
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using WebUI.Models;
 using BL;
 using Models;
+using Serilog;
 
 namespace WebUI.Controllers
 {
@@ -30,6 +31,7 @@ namespace WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            Log.Information("All Products Gathered");
             return View(
                 _prodBL.GetAllProducts()
                 .Select(prod => new ProductVM(prod))
@@ -47,11 +49,13 @@ namespace WebUI.Controllers
                 liLinePrice = new ProductVM(_prodBL.GetProductByID(p_prod)).pPrice*p_quant
             };
             OrderVM.currentLines.Add(newLine);
+            Log.Information("Item Added to Cart");
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Create()
         {
+            Log.Information("Product Creation screen called");
             return View();
         }
 
@@ -69,13 +73,16 @@ namespace WebUI.Controllers
                         pReleaseDate = prodVM.pReleaseDate,
                     }
                     );
+                    Log.Information("Product Added to system");
                     return RedirectToAction(nameof(Index));
                 }
             }
             catch (Exception)
             {
+                Log.Information("Product not added to system");
                 return View();
             }
+            Log.Information("Product not added to system");
             return View();
         }
 
@@ -84,6 +91,7 @@ namespace WebUI.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            Log.Information("Errored Out");
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

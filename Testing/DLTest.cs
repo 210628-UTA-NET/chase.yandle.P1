@@ -197,6 +197,206 @@ namespace Testing
             }
         }
 
+        [Fact]
+        public void GetAllProductsTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IProdRepository repo = new ProdRepository(context);
+                List<Product> prod = new();
+
+                prod = repo.GetAllProducts();
+                Assert.NotNull(prod);
+                Assert.Single(prod);
+
+            }
+        }
+        [Fact]
+        public void GetProductByIDTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IProdRepository repo = new ProdRepository(context);
+                Product prod = new();
+
+                prod = repo.GetProductByID(1);
+                Assert.NotNull(prod);
+                Assert.Equal("Bioshock Infinite",prod.pName);
+
+            }
+        }
+        [Fact]
+        public void StoresWithStockTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IProdRepository repo = new ProdRepository(context);
+                List<Inventory> inven = new();
+
+                inven = repo.StoresWithStock(new Product { pID = 1, pName = "Bioshock Infinite", pPrice = 50, pReleaseDate = DateTime.Now });
+                Assert.NotNull(inven);
+                Assert.Single(inven);
+
+            }
+        }
+        [Fact]
+        public void StockAtStoreTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IProdRepository repo = new ProdRepository(context);
+                int quant;
+
+                quant = repo.StockAtStore(1,1);
+                Assert.Equal(8,quant);
+
+            }
+        }
+
+        [Fact]
+        public void AddProductTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IProdRepository repo = new ProdRepository(context);
+                List<Product> prod = new();
+                repo.AddProduct(new Product
+                {
+                    pID = 2,
+                    pName = "Skyward Sword",
+                    pReleaseDate = DateTime.Now,
+                    pPrice = 50
+                });
+
+
+                prod = repo.GetAllProducts();
+                Assert.NotNull(prod);
+                Assert.Equal(2, prod.Count);
+
+            }
+        }
+
+        [Fact]
+        public void AddToInventoryTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IProdRepository repo = new ProdRepository(context);
+                int result;
+                Inventory inven = new Inventory
+                {
+                    iStoreID = 1,
+                    iProductID = 1,
+                    iQuantity = 7
+                };
+                repo.AddToInventory(inven, 8);
+                result = repo.StockAtStore(1,1);
+                Assert.Equal(7, result);
+
+            }
+        }
+
+        [Fact]
+        public void RemoveFromInventoryTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IProdRepository repo = new ProdRepository(context);
+                int result;
+                Inventory inven = new Inventory
+                {
+                    iStoreID = 1,
+                    iProductID = 1,
+                    iQuantity = 7
+                };
+                repo.RemoveFromInventory(inven);
+                result = repo.StockAtStore(1, 1);
+                Assert.Equal(7, result);
+
+            }
+        }
+
+        [Fact]
+        public void GetAllStoresTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IStoreRepository repo = new StoreRepository(context);
+                List<Store> store = new();
+
+                store = repo.GetAllStores();
+                Assert.NotNull(store);
+                Assert.Single(store);
+
+            }
+        }
+
+        [Fact]
+        public void StoreInventoryTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IStoreRepository repo = new StoreRepository(context);
+                List<Inventory> inven = new();
+
+                inven = repo.StoreInventory(new Store { stID = 1, stStreet = "1131 Market Center Dr", stCity = "Morrisville", stState = "NC", stEmail = "morrisville@gamestop.com", stPhone = "919-867-5309" });
+                Assert.NotNull(inven);
+                Assert.Single(inven);
+
+            }
+        }
+
+        [Fact]
+        public void GetStoreTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IStoreRepository repo = new StoreRepository(context);
+                Store store = new();
+
+                store = repo.GetStore(1);
+                Assert.NotNull(store);
+                Assert.Equal("1131 Market Center Dr",store.stStreet);
+
+            }
+        }
+
+        [Fact]
+        public void AddStoreTest()
+        {
+            using (var context = new StDbContext(_options))
+            {
+
+                IStoreRepository repo = new StoreRepository(context);
+                List<Store> store = new();
+                repo.AddStore(new Store
+                {
+                    stID = 2,
+                    stStreet = "8301 Brier Creek Pkwy",
+                    stCity = "Raleigh",
+                    stState = "NC",
+                    stEmail = "briercreek@gamestop.com",
+                    stPhone = "919-867-5310"
+                });
+
+
+                store = repo.GetAllStores();
+                Assert.NotNull(store);
+                Assert.Equal(2, store.Count);
+
+            }
+        }
+
         private void Seed()
         {
             using (var context = new StDbContext(_options))
