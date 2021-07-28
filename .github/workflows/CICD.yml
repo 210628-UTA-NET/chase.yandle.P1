@@ -29,7 +29,10 @@ jobs:
         sonarProjectKey: 210628-UTA-NET_chase.yandle.P1
         sonarProjectName: chase.yandle.P1
         sonarOrganization: 210628-uta-net
-        dotnetDisableTests: false
+        dotnetBuildArguments: .
+        dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        # Optional extra command arguments the the SonarScanner 'begin' command
+        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
