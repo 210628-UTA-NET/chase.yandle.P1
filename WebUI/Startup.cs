@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using DL;
 using Microsoft.EntityFrameworkCore;
 using BL;
+using Microsoft.AspNetCore.Http;
 
 namespace WebUI
 {
@@ -28,7 +29,6 @@ namespace WebUI
         {
             services.AddDbContext<StDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Reference2DB")));
             services.AddControllersWithViews();
-            
             services.AddScoped<ICustRepository, CustRepository>();
             services.AddScoped<ILineRepository, LineRepository>();
             services.AddScoped<IStoreRepository, StoreRepository>();
@@ -40,6 +40,14 @@ namespace WebUI
             services.AddScoped<IOrdersBL, OrdersBL>();
             services.AddScoped<IProdBL, ProdBL>();
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
         }
 
@@ -62,6 +70,9 @@ namespace WebUI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
+
 
             app.UseEndpoints(endpoints =>
             {
